@@ -5,6 +5,13 @@ Monkey Language implementation in Go, from ["Writing an Interpreter in Go"](http
 
 To run the test suite:
 
-```go
+```sh
 $ go test ./...
+```
+
+To open a REPL:
+
+```sh
+# Use ctrl-c to exit
+$ go run .
 ```

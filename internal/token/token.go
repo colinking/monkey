@@ -9,26 +9,83 @@ type TokenType string
 
 const (
 	// Special chars
-	ILLEGAL TokenType = "ILLEGAL"
-	EOF               = "EOF"
+	Illegal TokenType = "illegal"
+	EOF               = "eof"
 
 	// Literals
-	IDENTIFIER = "IDENTIFIER"
-	INT        = "INT"
+	Identifer = "identifer"
+	Int       = "int"
 
 	// Operators
-	ASSIGN = "="
-	PLUS   = "+"
+	Assign = "="
+	Plus   = "+"
+	Minus  = "-"
+	Not    = "!"
+	Slash  = "/"
+	Mult   = "*"
+
+	// Comparison
+	Equal        = "=="
+	NotEqual     = "!="
+	Less         = "<"
+	LessEqual    = "<="
+	Greater      = ">"
+	GreaterEqual = ">="
 
 	// Delimiters
-	COMMA     = ","
-	SEMICOLON = ";"
-	LPAREN    = "("
-	RPAREN    = ")"
-	LBRACK    = "{"
-	RBRACK    = "}"
+	Comma     = ","
+	Semicolon = ";"
+	LParen    = "("
+	RParen    = ")"
+	LBrack    = "{"
+	RBrack    = "}"
 
 	// Keywords
-	FUNC = "FUNC"
-	LET  = "LET"
+	Func   = "func"
+	Let    = "let"
+	True   = "true"
+	False  = "false"
+	If     = "if"
+	Else   = "else"
+	Return = "return"
 )
+
+var keywords = map[string]TokenType{
+	"func":   Func,
+	"let":    Let,
+	"true":   True,
+	"false":  False,
+	"if":     If,
+	"else":   Else,
+	"return": Return,
+}
+
+func LookupIdentifier(identifier string) TokenType {
+	if t, ok := keywords[identifier]; ok {
+		return t
+	}
+
+	return Identifer
+}
+
+var specialChars = map[byte]TokenType{
+	'=': Assign,
+	'+': Plus,
+	'-': Minus,
+	'!': Not,
+	'/': Slash,
+	'*': Mult,
+	'<': Less,
+	'>': Greater,
+	',': Comma,
+	';': Semicolon,
+	'(': LParen,
+	')': RParen,
+	'{': LBrack,
+	'}': RBrack,
+}
+
+func LookupChar(ch byte) (TokenType, bool) {
+	t, ok := specialChars[ch]
+	return t, ok
+}
